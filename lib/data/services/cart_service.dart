@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+
 import '../models/cart.dart';
 import '../models/cart_response.dart';
 
@@ -49,11 +50,19 @@ class CartService {
     }
   }
 
-  Future<CartResponse> removeFromCart(String username, int productId) async {
+  Future<CartResponse> removeFromCart(
+    String username,
+    int productId, {
+    int count = 1,
+  }) async {
     try {
       final response = await _dio.post(
         "sepettenUrunSil.php",
-        data: {"kullaniciAdi": username, "urun_id": productId.toString()},
+        data: {
+          "kullaniciAdi": username,
+          "urun_id": productId.toString(),
+          "adet": count.toString(), // API bunu destekliyorsa
+        },
       );
 
       if (response.statusCode == 200) {
@@ -67,4 +76,5 @@ class CartService {
       return CartResponse(success: false, message: e.toString());
     }
   }
+  
 }

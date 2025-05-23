@@ -239,14 +239,23 @@ class ApiService {
     try {
       final response = await _dio.post(
         "sepettenUrunSil.php",
-        data: {"kullaniciAdi": kullaniciAdi, "urun_id": urunId.toString()},
+        data: {"kullaniciAdi": kullaniciAdi, "sepetId": urunId.toString()},
+        options: Options(
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json',
+          },
+        ),
       );
 
       print('Silme Yanıtı: ${response.data}');
       print('Status Code: ${response.statusCode}');
 
       if (response.statusCode == 200) {
-        final jsonResponse = response.data;
+        final jsonResponse =
+            response.data is String
+                ? json.decode(response.data)
+                : response.data;
         return jsonResponse['success'] == 1;
       }
       return false;
@@ -254,6 +263,24 @@ class ApiService {
       print('Sepetten ürün silme hatası: ${e.message}');
       print('Hata Detayı: ${e.error}');
       return false;
+    } catch (e) {
+      print('Sepetten ürün silme hatası: $e');
+      return false;
     }
   }
+
+  // Future<List<Urunler>> searchUrunler(String searchText) async {
+  //   final dio = Dio();
+
+  //   var response = await dio.post(
+  //     "tumUrunleriGetir.php",
+  //     data: {"searchText": searchText},
+  //   );
+  //   if (response.statusCode == 200) {
+  //     final List<dynamic> urunlerJson = response.data["urunler"];
+  //     return urunlerJson.map((e) => Urunler.fromJson(e)).toList();
+  //   } else {
+  //     throw Exception("Arama başarısız");
+  //   }
+  // }
 }

@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:e_shopping_techcareer/data/entity/urunler.dart';
 import 'package:e_shopping_techcareer/data/services/api_services.dart';
@@ -44,4 +45,20 @@ class MainCubit extends Cubit<List<Urunler>> {
     }
     return state.where((urun) => urun.kategori == selectedCategory).toList();
   }
+
+  Future<void> searchUrunler(String searchText) async {
+    isLoading = true;
+    emit(state);
+
+    try {
+      final aramaSonucu = await _apiService.urunAra(searchText);
+      emit(aramaSonucu);
+    } catch (e) {
+      emit([]);
+    } finally {
+      isLoading = false;
+      emit(state);
+    }
+  }
+  
 }

@@ -22,7 +22,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('E-Shopping'),
+        title: Text(
+          _selectedIndex == 0
+              ? 'E-shopping'
+              : _selectedIndex == 1
+              ? 'Sepet'
+              : 'Profil',
+        ),
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
       ),
