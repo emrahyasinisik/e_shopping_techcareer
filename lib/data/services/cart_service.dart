@@ -37,7 +37,7 @@ class CartService {
         "sepeteUrunEkle.php",
         data: item.toJson(),
       );
-      print(response.data);
+
       if (response.statusCode == 200) {
         return CartResponse.fromJson(response.data);
       }
@@ -76,5 +76,4 @@ class CartService {
       return CartResponse(success: false, message: e.toString());
     }
   }
-  
 }

@@ -32,8 +32,6 @@ class Sepette {
         siparisAdeti: json['siparisAdeti'] as int,
       );
     } catch (e) {
-      print('Sepette.fromJson hatası: $e');
-      print('Hatalı JSON: $json');
       rethrow;
     }
   }

@@ -27,7 +27,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ? 'E-shopping'
               : _selectedIndex == 1
               ? 'Sepet'
-              : 'Profil',
+              : '',
         ),
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
@@ -42,7 +42,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
             icon: Icon(Icons.shopping_cart),
             label: 'Cart',
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Theme.of(context).primaryColor,
@@ -57,19 +56,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
         return const MainScreen();
       case 1:
         return const CartScreen();
-      case 2:
-        return const ProfileTab();
       default:
         return const MainScreen();
     }
-  }
-}
-
-class ProfileTab extends StatelessWidget {
-  const ProfileTab({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Profile Tab'));
   }
 }

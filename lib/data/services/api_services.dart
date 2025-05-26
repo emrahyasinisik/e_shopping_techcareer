@@ -21,14 +21,12 @@ class ApiService {
     if (response.statusCode == 200) {
       final Map<String, dynamic> jsonResponse = json.decode(response.data);
       final List<dynamic> urunlerJson = jsonResponse['urunler'];
-      print("İlk ürün örneği: ${urunlerJson.first}");
       return urunlerJson.map((e) => Urunler.fromJson(e)).toList();
     } else {
       throw Exception("Ürünler alınamadı.");
     }
   }
 
-  // 2. Ürün Güncelle
   Future<void> urunGuncelle({
     required int id,
     required String ad,
@@ -48,30 +46,25 @@ class ApiService {
         "marka": marka,
       },
     );
-    print("Güncelleme Yanıtı: ${response.data}");
 
     if (response.statusCode != 200) {
       throw Exception("Ürün güncellenemedi.");
     }
   }
 
-  // 3. Ürün Sil
   Future<void> urunSil(int id) async {
     final response = await _dio.post("urunSil.php", data: {"id": id});
-    print("Silme Yanıtı: ${response.data}");
 
     if (response.statusCode != 200) {
       throw Exception("Ürün silinemedi.");
     }
   }
 
-  // 4. Ürün Ara
   Future<List<Urunler>> urunAra(String aramaKelimesi) async {
     final response = await _dio.post(
       "urunAra.php",
       data: {"arama_kelimesi": aramaKelimesi},
     );
-    print("Arama Yanıtı: ${response.data}");
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> jsonResponse = json.decode(response.data);
@@ -82,13 +75,11 @@ class ApiService {
     }
   }
 
-  // 5. Kategoriye Göre Ürünleri Getir
   Future<List<Urunler>> kategoriyeGoreUrunleriGetir(String kategori) async {
     final response = await _dio.post(
       "kategoriyeGoreUrunleriGetir.php",
       data: {"kategori": kategori},
     );
-    print("Kategori Yanıtı: ${response.data}");
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> jsonResponse = json.decode(response.data);
@@ -99,13 +90,11 @@ class ApiService {
     }
   }
 
-  // 6. Fiyata Göre Sırala
   Future<List<Urunler>> fiyataGoreSirala(String siralama) async {
     final response = await _dio.post(
       "fiyataGoreSirala.php",
       data: {"siralama": siralama},
     );
-    print("Sıralama Yanıtı: ${response.data}");
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> jsonResponse = json.decode(response.data);
@@ -121,7 +110,7 @@ class ApiService {
     return "http://kasimadalan.pe.hu/urunler/resimler/$resimAdi";
   }
 
-  Future<List<Sepette>> SepetteUrunEkle(
+  Future<List<Sepette>> sepetteUrunEkle(
     String kullaniciAdi,
     Urunler urun,
   ) async {
@@ -171,7 +160,6 @@ class ApiService {
     }
   }
 
-  // Sepetteki ürünleri getir
   Future<List<Sepette>> sepetUrunleriniGetir(String kullaniciAdi) async {
     try {
       print('Sepet ürünleri getiriliyor - Kullanıcı: $kullaniciAdi');
@@ -229,12 +217,10 @@ class ApiService {
       print('Hata Detayı: ${e.error}');
       return [];
     } catch (e) {
-      print('Sepet ürünleri getirilirken beklenmeyen hata: $e');
       return [];
     }
   }
 
-  // Sepetten ürün sil
   Future<bool> sepettenUrunSil(String kullaniciAdi, int urunId) async {
     try {
       final response = await _dio.post(
@@ -269,18 +255,6 @@ class ApiService {
     }
   }
 
-  // Future<List<Urunler>> searchUrunler(String searchText) async {
-  //   final dio = Dio();
 
-  //   var response = await dio.post(
-  //     "tumUrunleriGetir.php",
-  //     data: {"searchText": searchText},
-  //   );
-  //   if (response.statusCode == 200) {
-  //     final List<dynamic> urunlerJson = response.data["urunler"];
-  //     return urunlerJson.map((e) => Urunler.fromJson(e)).toList();
-  //   } else {
-  //     throw Exception("Arama başarısız");
-  //   }
-  // }
+  
 }

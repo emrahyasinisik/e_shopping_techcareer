@@ -32,8 +32,6 @@ class Urunler {
         marka: json['marka']?.toString() ?? '',
       );
     } catch (e) {
-      print('Urunler.fromJson hatası: $e');
-      print('Hatalı JSON: $json');
       rethrow;
     }
   }
