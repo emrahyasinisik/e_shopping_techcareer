@@ -124,7 +124,9 @@ class _ProductDetailContentState extends State<ProductDetailContent> {
               // Alt bar - Sepete ekle + miktar kontrolü
               Padding(
                 padding: EdgeInsets.only(
-                  bottom: MediaQuery.sizeOf(context).height * 0.01,
+                  bottom: MediaQuery.sizeOf(context).height * 0.025,
+                  left: MediaQuery.sizeOf(context).width * 0.02,
+                  right: MediaQuery.sizeOf(context).width * 0.02,
                 ),
                 child: BlocBuilder<CartCubit, List<Sepette>>(
                   builder: (context, cartState) {
@@ -145,50 +147,57 @@ class _ProductDetailContentState extends State<ProductDetailContent> {
                             style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
-                              color: Colors.red,
+                              color: Colors.black,
                             ),
                           ),
-                          Row(
-                            children: [
-                              IconButton(
-                                icon: const Icon(Icons.remove, size: 20),
-                                onPressed: () async {
-                                  await sepettenCikar(urun);
-                                  if (mounted) {
-                                    context.read<CartCubit>().getCartItems(
-                                      "emrah_isik",
-                                    );
-                                  }
-                                },
-                                padding: EdgeInsets.zero,
-                                constraints: const BoxConstraints(),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8,
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+
+                            child: Row(
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.remove, size: 20),
+                                  onPressed: () async {
+                                    await sepettenCikar(urun);
+                                    if (mounted) {
+                                      context.read<CartCubit>().getCartItems(
+                                        "emrah_isik",
+                                      );
+                                    }
+                                  },
+                                  padding: EdgeInsets.zero,
+                                  constraints: const BoxConstraints(),
                                 ),
-                                child: Text(
-                                  quantity.toString(),
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                  ),
+                                  child: Text(
+                                    quantity.toString(),
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              IconButton(
-                                icon: const Icon(Icons.add, size: 20),
-                                onPressed: () async {
-                                  await sepeteEkle();
-                                  if (mounted) {
-                                    context.read<CartCubit>().getCartItems(
-                                      "emrah_isik",
-                                    );
-                                  }
-                                },
-                                padding: EdgeInsets.zero,
-                                constraints: const BoxConstraints(),
-                              ),
-                            ],
+                                IconButton(
+                                  icon: const Icon(Icons.add, size: 20),
+                                  onPressed: () async {
+                                    await sepeteEkle();
+                                    if (mounted) {
+                                      context.read<CartCubit>().getCartItems(
+                                        "emrah_isik",
+                                      );
+                                    }
+                                  },
+                                  padding: EdgeInsets.zero,
+                                  constraints: const BoxConstraints(),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       );

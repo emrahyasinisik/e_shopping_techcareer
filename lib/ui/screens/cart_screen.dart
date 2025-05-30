@@ -42,6 +42,7 @@ class _CartScreenState extends State<CartScreen> with TickerProviderStateMixin {
   }
 
   Map<String, List<Sepette>> groupCartItems(List<Sepette> items) {
+    //Sepette'leri adlarına göre gruplayan fonksiyon
     Map<String, List<Sepette>> groupedItems = {};
     for (var item in items) {
       if (!groupedItems.containsKey(item.ad)) {
@@ -132,6 +133,7 @@ class _CartScreenState extends State<CartScreen> with TickerProviderStateMixin {
                         );
                       },
                       child: Card(
+                        color: Colors.blueGrey[70],
                         margin: const EdgeInsets.all(8.0),
                         child: Padding(
                           padding: const EdgeInsets.all(12.0),
@@ -202,7 +204,7 @@ class _CartScreenState extends State<CartScreen> with TickerProviderStateMixin {
                                             vertical: 6,
                                           ),
                                           decoration: BoxDecoration(
-                                            color: Colors.grey[200],
+                                            color: Colors.white,
                                             borderRadius: BorderRadius.circular(
                                               20,
                                             ),
@@ -327,6 +329,13 @@ class _CartScreenState extends State<CartScreen> with TickerProviderStateMixin {
                       ),
                     ),
                     ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.orange[700],
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 24,
+                          vertical: 12,
+                        ),
+                      ),
                       onPressed: () {
                         late AnimationController _controller;
                         showDialog(

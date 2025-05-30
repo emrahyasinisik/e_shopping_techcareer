@@ -3,7 +3,6 @@ import 'package:e_shopping_techcareer/data/entity/sepette.dart';
 import 'package:e_shopping_techcareer/ui/cubits/main_cubit.dart';
 import 'package:e_shopping_techcareer/ui/cubits/cart_cubit.dart';
 import 'package:e_shopping_techcareer/ui/screens/product_detail_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -88,28 +87,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   // Sepetteki ürün miktarını artırma (animasyonsuz)
   Future<void> sepeteEkleHizli(Urunler urun) async {
-    try {
-      await context.read<CartCubit>().sepeteUrunEkle("emrah_isik", urun);
-      await context.read<CartCubit>().getCartItems("emrah_isik");
-
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("${urun.ad} sepete eklendi"),
-            backgroundColor: Colors.green,
-          ),
-        );
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("Ürün eklenirken hata oluştu: $e"),
-            backgroundColor: Colors.red,
-          ),
-        );
-      }
-    }
+    await context.read<CartCubit>().sepeteUrunEkle("emrah_isik", urun);
+    await context.read<CartCubit>().getCartItems("emrah_isik");
   }
 
   @override
@@ -375,7 +354,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                                 MediaQuery.sizeOf(
                                                   context,
                                                 ).width *
-                                                0.05,
+                                                0.04,
                                             fontFamily: "Oswald",
                                           ),
                                         ),
@@ -414,7 +393,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                                 MediaQuery.sizeOf(
                                                   context,
                                                 ).height *
-                                                0.082,
+                                                0.072,
 
                                             child: Column(
                                               children: [

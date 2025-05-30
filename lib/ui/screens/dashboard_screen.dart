@@ -36,6 +36,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: Padding(padding: const EdgeInsets.all(0), child: _buildBody()),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(
