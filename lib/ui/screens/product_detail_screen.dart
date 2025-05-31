@@ -144,8 +144,9 @@ class _ProductDetailContentState extends State<ProductDetailContent> {
                         children: [
                           Text(
                             "Fiyat : ${urun.fiyat * quantity} TL",
-                            style: const TextStyle(
-                              fontSize: 24,
+                            style: TextStyle(
+                              fontSize:
+                                  MediaQuery.sizeOf(context).height * 0.025,
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
                             ),

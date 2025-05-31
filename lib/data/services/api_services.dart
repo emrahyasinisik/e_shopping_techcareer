@@ -52,13 +52,13 @@ class ApiService {
     }
   }
 
-  Future<void> urunSil(int id) async {
-    final response = await _dio.post("urunSil.php", data: {"id": id});
+  // Future<void> urunSil(int id) async {
+  //   final response = await _dio.post("urunSil.php", data: {"id": id});
 
-    if (response.statusCode != 200) {
-      throw Exception("Ürün silinemedi.");
-    }
-  }
+  //   if (response.statusCode != 200) {
+  //     throw Exception("Ürün silinemedi.");
+  //   }
+  // }
 
   Future<List<Urunler>> urunAra(String aramaKelimesi) async {
     final response = await _dio.post(
@@ -254,7 +254,4 @@ class ApiService {
       return false;
     }
   }
-
-
-  
 }

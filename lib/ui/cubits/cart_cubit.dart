@@ -4,6 +4,7 @@ import 'package:e_shopping_techcareer/data/entity/sepette.dart';
 import 'package:e_shopping_techcareer/data/repo/e_shopping_dao_repository.dart';
 
 class CartCubit extends Cubit<List<Sepette>> {
+  
   final ShoppingDaoRepository _repository = ShoppingDaoRepository();
 
   CartCubit() : super([]);

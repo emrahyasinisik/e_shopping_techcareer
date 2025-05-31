@@ -13,7 +13,9 @@ class CartResponse {
       message: json['message'] ?? '',
       items:
           json['urunler'] != null
-              ? List<Cart>.from(json['urunler'].map((x) => Cart.fromJson(x)))
+              ? List<Cart>.from(
+                json['urunler'].map((x) => Cart.fromJson(x)),
+              ) // ürünler listesini oluşturur
               : null,
     );
   }

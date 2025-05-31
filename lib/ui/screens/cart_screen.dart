@@ -41,7 +41,7 @@ class _CartScreenState extends State<CartScreen> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  Map<String, List<Sepette>> groupCartItems(List<Sepette> items) {
+  Map<String, List<Sepette>> groupCartItems(List<Sepette> items) { //buraya bak map ne idi tablo mu yoksa liste mi 
     //Sepette'leri adlarına göre gruplayan fonksiyon
     Map<String, List<Sepette>> groupedItems = {};
     for (var item in items) {
@@ -54,7 +54,7 @@ class _CartScreenState extends State<CartScreen> with TickerProviderStateMixin {
   }
 
   int getTotalQuantity(List<Sepette> items) {
-    return items.fold(0, (sum, item) => sum + item.siparisAdeti);
+    return items.fold(0, (sum, item) => sum + item.siparisAdeti); //fold nedir 
   }
 
   int getTotalPrice(List<Sepette> items) {
