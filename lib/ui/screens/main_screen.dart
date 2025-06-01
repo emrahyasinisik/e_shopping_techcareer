@@ -256,7 +256,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         MediaQuery.sizeOf(context).width *
                         1 /
                         MediaQuery.sizeOf(context).height *
-                        1.46,
+                        1.5,
                   ),
                   itemCount: state.length,
                   itemBuilder: (context, index) {
@@ -306,7 +306,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                   : Colors.grey[100],
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(0),
@@ -336,10 +336,9 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                               Padding(
                                 padding: EdgeInsets.symmetric(
                                   horizontal:
-                                      MediaQuery.sizeOf(context).width * 0.01,
+                                      MediaQuery.sizeOf(context).width * 0.02,
                                 ),
                                 child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
@@ -348,8 +347,12 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "${urun.marka}",
+                                          urun.marka,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                          softWrap: false,
                                           style: TextStyle(
+                                            inherit: true,
                                             fontSize:
                                                 MediaQuery.sizeOf(
                                                   context,
@@ -358,7 +361,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                             fontFamily: "Oswald",
                                           ),
                                         ),
-                                        Text('${urun.ad}'),
+                                        Text(urun.ad),
                                         Text(
                                           "${urun.fiyat} ₺ ",
                                           style: TextStyle(
@@ -386,7 +389,6 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                         final isLoading =
                                             loadingStates[urun.id.toString()] ==
                                             true;
-                                        // Eğer loading durumunda değilse ve sepette varsa + - göster
                                         if (!isLoading && isInCart) {
                                           return SizedBox(
                                             height:
@@ -396,99 +398,103 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                                                 0.072,
 
                                             child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+
                                               children: [
-                                                SizedBox(
+                                                Container(
                                                   height:
                                                       MediaQuery.sizeOf(
                                                         context,
                                                       ).height *
-                                                      0.015,
-                                                ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Container(
-                                                      padding: EdgeInsets.all(
-                                                        0,
-                                                      ),
-                                                      margin: EdgeInsets.all(0),
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.grey[200],
+                                                      0.05,
+                                                  width:
+                                                      MediaQuery.sizeOf(
+                                                        context,
+                                                      ).width *
+                                                      0.2,
+                                                  padding: EdgeInsets.all(0),
+                                                  margin: EdgeInsets.all(0),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          10,
+                                                        ),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceAround,
+                                                    children: [
+                                                      InkWell(
+                                                        onTap: () async {
+                                                          await sepettenCikar(
+                                                            urun,
+                                                          );
+                                                          if (mounted) {
+                                                            context
+                                                                .read<
+                                                                  CartCubit
+                                                                >()
+                                                                .getCartItems(
+                                                                  "emrah_isik",
+                                                                );
+                                                          }
+                                                        },
                                                         borderRadius:
                                                             BorderRadius.circular(
-                                                              10,
+                                                              20,
                                                             ),
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                4.0,
+                                                              ),
+                                                          child: Icon(
+                                                            Icons.remove,
+                                                          ),
+                                                        ),
                                                       ),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          IconButton(
-                                                            icon: Icon(
-                                                              Icons.remove,
-                                                            ),
-                                                            onPressed: () async {
-                                                              await sepettenCikar(
-                                                                urun,
-                                                              );
-                                                              if (mounted) {
-                                                                context
-                                                                    .read<
-                                                                      CartCubit
-                                                                    >()
-                                                                    .getCartItems(
-                                                                      "emrah_isik",
-                                                                    );
-                                                              }
-                                                            },
-                                                            padding:
-                                                                EdgeInsets.zero,
-                                                          ),
-                                                          Text(
-                                                            quantity.toString(),
-                                                            style: TextStyle(
-                                                              fontSize:
-                                                                  MediaQuery.sizeOf(
-                                                                    context,
-                                                                  ).width *
-                                                                  0.04,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            ),
-                                                          ),
-                                                          IconButton(
-                                                            icon: Icon(
-                                                              Icons.add,
-                                                              size:
-                                                                  MediaQuery.sizeOf(
-                                                                    context,
-                                                                  ).width *
-                                                                  0.04,
-                                                            ),
-                                                            onPressed: () async {
-                                                              await sepeteEkleHizli(
-                                                                urun,
-                                                              ); // Hızlı ekleme fonksiyonu
-                                                            },
-                                                            padding:
-                                                                EdgeInsets.zero,
-                                                          ),
-                                                        ],
+                                                      Text(
+                                                        quantity.toString(),
+                                                        style: TextStyle(
+                                                          fontSize:
+                                                              MediaQuery.sizeOf(
+                                                                context,
+                                                              ).width *
+                                                              0.04,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
+                                                      InkWell(
+                                                        onTap: () async {
+                                                          await sepeteEkleHizli(
+                                                            urun,
+                                                          ); // Hızlı ekleme fonksiyonu
+                                                        },
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                              20,
+                                                            ),
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                4.0,
+                                                              ),
+                                                          child: Icon(
+                                                            Icons.add,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
                                               ],
                                             ),
                                           );
                                         }
-
-                                        // Loading durumunda veya sepette yoksa animasyon butonunu göster
                                         return ElevatedButton(
                                           onPressed:
                                               isLoading

@@ -1,3 +1,4 @@
+import 'package:e_shopping_techcareer/ui/component/group_cart.dart';
 import 'package:e_shopping_techcareer/ui/screens/product_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +16,7 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> with TickerProviderStateMixin {
   late AnimationController _animationController;
+
   // ignore: unused_field
   bool _showEmptyMessage = false;
 
@@ -41,20 +43,8 @@ class _CartScreenState extends State<CartScreen> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  Map<String, List<Sepette>> groupCartItems(List<Sepette> items) { //buraya bak map ne idi tablo mu yoksa liste mi 
-    //Sepette'leri adlarına göre gruplayan fonksiyon
-    Map<String, List<Sepette>> groupedItems = {};
-    for (var item in items) {
-      if (!groupedItems.containsKey(item.ad)) {
-        groupedItems[item.ad] = [];
-      }
-      groupedItems[item.ad]!.add(item);
-    }
-    return groupedItems;
-  }
-
   int getTotalQuantity(List<Sepette> items) {
-    return items.fold(0, (sum, item) => sum + item.siparisAdeti); //fold nedir 
+    return items.fold(0, (sum, item) => sum + item.siparisAdeti); //fold nedir
   }
 
   int getTotalPrice(List<Sepette> items) {
@@ -92,7 +82,7 @@ class _CartScreenState extends State<CartScreen> with TickerProviderStateMixin {
           _showEmptyMessage = false;
           _animationController.reset();
 
-          final groupedItems = groupCartItems(state);
+          final groupedItems = GroupCart.groupCartItems(state);
           final totalPrice = state.fold(
             0,
             (sum, item) => sum + (item.fiyat * item.siparisAdeti),
